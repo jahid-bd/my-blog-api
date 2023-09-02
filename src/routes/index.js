@@ -8,7 +8,7 @@ router
 
 router
   .route('/api/v1/articles/:id')
-  .get(() => {})
+  .get(articleController.findSingleItem)
   .put(() => {})
   .patch(() => {})
   .delete(() => {});

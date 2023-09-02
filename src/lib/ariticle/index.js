@@ -59,9 +59,40 @@ const create = async ({
   return await article.save();
 };
 
+const findSingleItem = async ({ id, expand = '' }) => {
+  if (!id) throw Error('Is is required');
+
+  expand = expand.split(',').map((item) => item.trim());
+
+  const article = await Article.findById(id);
+
+  if (!article) throw notFound();
+
+  if (expand.includes('author')) {
+    await article.populate({
+      path: 'author',
+      select: 'name',
+      strictPopulate: false,
+    });
+  }
+
+  if (expand.includes('comment')) {
+    await article.populate({
+      path: 'comments',
+      strictPopulate: false,
+    });
+  }
+
+  return {
+    ...article._doc,
+    id: article.id,
+  };
+};
+
 module.exports = {
   findAll,
   create,
   count,
   generateQueryString,
+  findSingleItem,
 };

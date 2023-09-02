@@ -8,9 +8,6 @@ info:
     url: https://fsarmy.com
     email: support@fsarmy.com
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: 'https://virtserver.swaggerhub.com/stacklearner/fs-army-my-blog-api/1.0.0'
   - description: Dev
     url: 'http://localhost:4000/api/v1'
 tags:
@@ -23,7 +20,7 @@ tags:
   - name: User
     description: User Endpoints (admin only)
 paths:
-  '/auth/signup':
+  '/auth/register':
     post:
       description: create a new account
       tags: [Auth]
@@ -79,7 +76,7 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           '$ref': '#/components/responses/500'
-  '/auth/signin':
+  '/auth/login':
     post:
       description: Login to your account
       tags: [Auth]
@@ -643,6 +640,7 @@ components:
       in: query
       name: page
       description: current page number
+      required: true
       schema:
         type: integer
         format: int32
@@ -651,6 +649,7 @@ components:
       in: query
       name: limit
       description: maximum items to be returned
+      required: true
       schema:
         type: integer
         format: int32
@@ -683,6 +682,5 @@ components:
       required: true
       description: Article ID
       schema:
-        type: integer
-        format: int32
-        example: 1
+        type: string
+        example: '64d268cdeef8c84bb18912db'
